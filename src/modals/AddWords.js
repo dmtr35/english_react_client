@@ -13,7 +13,6 @@ const AddWords = observer(({ idColl, show, onHide }) => {
     const { fullCollections } = useContext(Context)
     const [arrWord, setArrWord] = useState([])
     const [file, setFile] = useState(null)
-    console.log(file);
     
 
 
@@ -64,7 +63,7 @@ const AddWords = observer(({ idColl, show, onHide }) => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                <div className='div_file'>
+                    <div className='div_file'>
                         <Form.Control
                             className='upload_file'
                             type="file"
@@ -73,7 +72,7 @@ const AddWords = observer(({ idColl, show, onHide }) => {
                         <div className='Instructions'>Инструкции</div>
                         <Image className='image_info' src={info} />
                     </div>
-                    <p className='text_or'>И / Или</p>
+                    <p className='text_or'>Или</p>
 
                     <Button
                         variant={"outline-dark"}
@@ -85,6 +84,7 @@ const AddWords = observer(({ idColl, show, onHide }) => {
                         <Row className='mt-2' key={i.number}>
                             <Col md={4}>
                                 <Form.Control
+                                    className=' word'
                                     value={i.eng}
                                     onChange={(e) => changeWord('eng', e.target.value, i.number)}
                                     placeholder={'Введите слово'}
@@ -93,6 +93,7 @@ const AddWords = observer(({ idColl, show, onHide }) => {
                             <Col md={4}>
                                 <Form.Control
                                     value={i.rus}
+                                    className=' word'
                                     onChange={(e) => changeWord('rus', e.target.value, i.number)}
                                     placeholder={'Введите перевод'}
                                 />

@@ -39,7 +39,7 @@ const EditCollection = observer(({ idColl, show, onHide, collName }) => {
                     <Form.Control
                         value={name}
                         onChange={e => setName(e.target.value)}
-                        className='mt-3'
+                        className='word'
                         placeholder="Введите название колекции"
                     />
                 </Form>

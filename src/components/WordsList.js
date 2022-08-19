@@ -13,8 +13,6 @@ const WordsList = observer(({ search }) => {
     const { fullCollections } = useContext(Context)
     const [active, setActive] = useState([])
     const [editWordVisible, setEditWordVisible] = useState(false)
-    console.log(search);
-
 
 
     const turnWord = (id) => {
@@ -44,13 +42,13 @@ const WordsList = observer(({ search }) => {
 
 
     return (
-        <>
+        <div>
             {fullCollections.randomListWods
                 .filter(word => word.eng.includes(search) || word.rus.includes(search))
                 .map((word) =>
                     <div
                         key={word.wordId}
-                        className=" m-2" >
+                        className=" m-2 words_list" >
                         <Card className=" wordblock"
                             style={{ cursor: 'pointer' }}
                         >
@@ -153,7 +151,7 @@ const WordsList = observer(({ search }) => {
                     </div>
                 )
             }
-        </>
+        </div>
     )
 })
 

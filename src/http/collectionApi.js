@@ -32,7 +32,6 @@ export const deleteWord = async (id, wordId) => {
     return data
 }
 export const deleteManyCollection = async (arrCollId) => {
-    console.log(arrCollId);
     const { data } = await $host.post(`collections/deleteManyCollection/`, {arrCollId})
     return data
 }
