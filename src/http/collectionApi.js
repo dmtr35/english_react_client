@@ -1,4 +1,4 @@
-import { $authHost, $host } from "./index";
+import { $authHost, $host } from "./index"
 
 
 export const createCollection = async (id, formData) => {

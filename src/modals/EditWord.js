@@ -10,8 +10,8 @@ import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router-dom'
 import { Dropdown, Form, Row, Col } from 'react-bootstrap'
 import { editWord, deleteAndMove } from '../http/collectionApi'
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import InputGroup from 'react-bootstrap/InputGroup';
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import InputGroup from 'react-bootstrap/InputGroup'
 
 
 const EditWord = observer(({ currentCollId, wordId, show, onHide, engW, rusW }) => {
@@ -20,7 +20,7 @@ const EditWord = observer(({ currentCollId, wordId, show, onHide, engW, rusW }) 
     const [rus, setRus] = useState(`${rusW}`)
     const [titleDropdown, setTitleDropdown] = useState('Переместить в другую колекцию')
     const [transferWord, setTransferWord] = useState('')
-    console.log("transferWord::", transferWord);
+    console.log("transferWord::", transferWord)
 
 
 

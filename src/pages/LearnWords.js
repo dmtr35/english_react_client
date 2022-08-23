@@ -1,7 +1,7 @@
 import React from "react"
-import Collections from '../components/Collections';
-import Words from '../components/Words';
-import TypeBar from '../components/TypeBar';
+import Collections from '../components/Collections'
+import Words from '../components/Words'
+import TypeBar from '../components/TypeBar'
 
 
 const LearnWords = () => {

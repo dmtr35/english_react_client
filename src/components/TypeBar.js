@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite"
 import { Context } from ".."
 import { useNavigate } from "react-router-dom"
 import { LOGIN_ROUTE } from "../utils/consts"
-import { FaBook } from 'react-icons/fa';
+import { FaBook } from 'react-icons/fa'
 
 
 

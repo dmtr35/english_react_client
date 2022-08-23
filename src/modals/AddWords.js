@@ -7,13 +7,14 @@ import { Form, Row, Col } from 'react-bootstrap'
 import { addWords, addWordsFromFile } from '../http/collectionApi'
 import Image from 'react-bootstrap/Image'
 import info from '../assets/info.png'
+import Instructions from '../modals/Instructions'
 
 
 const AddWords = observer(({ idColl, show, onHide }) => {
     const { fullCollections } = useContext(Context)
     const [arrWord, setArrWord] = useState([])
     const [file, setFile] = useState(null)
-    
+    const [instructionsVisible, setInstructionsVisible] = useState(false)
 
 
     const addWord = () => {
@@ -69,8 +70,16 @@ const AddWords = observer(({ idColl, show, onHide }) => {
                             type="file"
                             onChange={selectFile}
                         />
-                        <div className='Instructions'>Инструкции</div>
-                        <Image className='image_info' src={info} />
+                        <div className='instructions'>Инструкции</div>
+                        <Image
+                            onClick={() => { setInstructionsVisible(true) }}
+                            className='image_info'
+                            src={info}
+                        />
+                        <Instructions
+                            show={instructionsVisible}
+                            onHide={() => setInstructionsVisible(false)}
+                        />
                     </div>
                     <p className='text_or'>Или</p>
 

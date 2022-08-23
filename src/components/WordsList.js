@@ -3,11 +3,11 @@ import Card from "react-bootstrap/Card"
 import "../styles/module.css"
 import { observer } from "mobx-react-lite"
 import { Context } from ".."
-import { AiOutlineDelete } from 'react-icons/ai';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { AiOutlineMenu } from 'react-icons/ai';
-import { deleteWord } from '../http/collectionApi';
-import EditWord from '../modals/EditWord';
+import { AiOutlineDelete } from 'react-icons/ai'
+import { AiOutlineEdit } from 'react-icons/ai'
+import { AiOutlineMenu } from 'react-icons/ai'
+import { deleteWord } from '../http/collectionApi'
+import EditWord from '../modals/EditWord'
 
 const WordsList = observer(({ search }) => {
     const { fullCollections } = useContext(Context)

@@ -9,10 +9,10 @@ import { handleChange, isCheckTrue } from "../utils/dopFunction"
 import CreateCollection from "../modals/CreateCollection"
 import EditCollection from "../modals/EditCollection"
 import AddWords from "../modals/AddWords"
-import { AiOutlineDelete } from 'react-icons/ai';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { AiOutlinePlusSquare } from 'react-icons/ai';
-import { AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineDelete } from 'react-icons/ai'
+import { AiOutlineEdit } from 'react-icons/ai'
+import { AiOutlinePlusSquare } from 'react-icons/ai'
+import { AiOutlineMenu } from 'react-icons/ai'
 
 
 const Collections = observer(() => {
@@ -22,21 +22,29 @@ const Collections = observer(() => {
     const [editCollectionsVisible, setEditCollectionsVisible] = useState(false)
     const [addWordsVisible, setAddWordsVisible] = useState(false)
     const userId = localStorage.getItem('userId')
+    const arrCheck = localStorage.getItem('arrCheck-62c81bf66ecd737e4a7c3eff')
     const [show, setShow] = useState(false)
+    const [disabledDeleteChecked, setDisabledDeleteChecked] = useState(false)
+    
 
     const hideCollections = useRef('none')
 
 
     const onButtonClick = () => {
         if (!show) {
-            hideCollections.current.style.display = "none";
+            hideCollections.current.style.display = "none"
             setShow(true)
         } else {
             hideCollections.current.style.display = "block"
             setShow(false)
         }
-    };
+    }
 
+    useEffect(() => {
+        if (!arrCheck || arrCheck === '[]') {
+            setDisabledDeleteChecked(true)
+        } else setDisabledDeleteChecked(false)
+    }, [arrCheck])
 
     useEffect(() => {
         getCollections(`${localStorage.getItem('userId')}`)
@@ -57,7 +65,7 @@ const Collections = observer(() => {
                     ))
         if (localStorage.getItem('switch') === 'true') random.sort(() => Math.random() - 0.5)
         fullCollections.setRandomListWods(random)
-        // console.log('random:', random);
+        // console.log('random:', random)
 
     }
 
@@ -96,7 +104,7 @@ const Collections = observer(() => {
                     size="lg"
                     onClick={onButtonClick}
                 >
-                    {show ?'Показать коллекции' : 'Скрыть коллекции'}
+                    {show ? 'Показать коллекции' : 'Скрыть коллекции'}
                 </Button>
             </div>
             <div
@@ -177,7 +185,9 @@ const Collections = observer(() => {
                 )
                 }
                 <div className="d-grid gap-2 mt-2 mb-2 m-3">
-                    <Button className="button"
+                    <Button
+                        className="button"
+                        disabled={disabledDeleteChecked}
                         onClick={() => deleteManyColl()}
                         variant="primary"
                         size="lg"
@@ -189,7 +199,6 @@ const Collections = observer(() => {
         </div >
     )
 })
-
 
 
 

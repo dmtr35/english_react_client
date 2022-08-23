@@ -27,7 +27,7 @@ const Auth = observer(() => {
                 data = await login(email, password)
 
                 if (data) {
-                    console.log(typeof data.id);
+                    console.log(typeof data.id)
                     user.setIsAuth(true)
                     document.location.href = LEARN_WORDS
                 }
@@ -38,7 +38,8 @@ const Auth = observer(() => {
                 }
             }
         } catch (e) {
-            console.log(e);
+            console.log(e)
+            alert(e.response.data.message)
         }
     }
 
