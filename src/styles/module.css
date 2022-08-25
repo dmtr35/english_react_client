@@ -286,10 +286,10 @@
     }
 
     .image_info_modal {
-        width: 450px;
-        height: 450px;
-        bottom: -225px;
-        right: 150px;
+        width: 400px;
+        height: 400px;
+        bottom: -205px;
+        right: 30px;
     }
 }
 
@@ -303,10 +303,10 @@
     }
 
     .image_info_modal {
-        width: 350px;
-        height: 350px;
-        bottom: -250px;
-        right: 100px;
+        width: 400px;
+        height: 400px;
+        bottom: -200px;
+        right: 50px;
     }
 }
 
@@ -321,6 +321,12 @@
 
     .word {
         margin-bottom: 12px;
+    }
+    .image_info_modal {
+        width: 380px;
+        height: 380px;
+        bottom: -190px;
+        right: 60px;
     }
 
 }
@@ -338,6 +344,12 @@
 
     .start {
         display: block;
+    }
+    .image_info_modal {
+        width: 380px;
+        height: 380px;
+        bottom: -190px;
+        right: 60px;
     }
 }
 
@@ -363,8 +375,8 @@
         gap: 10px;
     }
     .image_info_modal {
-        width: 310px;
-        height: 310px;
+        width: 350px;
+        height: 350px;
         bottom: -160px;
         right: 40px;
     }
@@ -377,9 +389,9 @@
         font-size: 12px;
     }
     .image_info_modal {
-        width: 250px;
-        height: 250px;
-        bottom: -160px;
-        right: 40px;
+        width: 350px;
+        height: 350px;
+        bottom: -180px;
+        right: 10px;
     }
 }
