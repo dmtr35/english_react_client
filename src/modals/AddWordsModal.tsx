@@ -1,70 +1,68 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { Context } from "../index"
+import React, { useState, FC } from 'react'
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
-import { observer } from 'mobx-react-lite'
 import { Form, Row, Col } from 'react-bootstrap'
-import { createCollection, createFromFile } from '../http/collectionApi'
+import { addWords, addWordsFromFile } from '../http/collectionApi'
 import Image from 'react-bootstrap/Image'
 import info from '../assets/info.png'
-import Instructions from '../modals/Instructions'
+import InstructionModal from '../modals/InstructionModal'
+import { useDispatch } from 'react-redux'
+import { setIsLoadCollectionsPayload, setMenuCollPayload } from '../store/collectionsReducer'
+import { IArrWord } from '../model'
+
+interface AddWordsModalProps {
+    collId: string
+    show: boolean
+    onHide: () => void
+}
 
 
-const CreateCollection = observer(({ show, onHide }) => {
-    const { fullCollections } = useContext(Context)
-    const [name, setName] = useState('')
-    const [arrWord, setArrWord] = useState([])
-    const [file, setFile] = useState(null)
-    const [instructionsVisible, setInstructionsVisible] = useState(false)
-    const userId = localStorage.getItem('userId')
+const AddWordsModal: FC<AddWordsModalProps> = ({ collId, show, onHide }) => {
+    const dispatch = useDispatch()
+    const setIsLoadColleltions = (value: boolean) => { dispatch(setIsLoadCollectionsPayload(value)) }
+    const setMenuColl = (value: any) => { dispatch(setMenuCollPayload(value)) }
+
+
+    const [arrWord, setArrWord] = useState<any>([])
+    const [file, setFile] = useState<any>(null)
+    const [instructionsVisible, setInstructionsVisible] = useState<boolean>(false)
 
 
     const addWord = () => {
         setArrWord([...arrWord, { eng: '', rus: '', number: Date.now() }])
     }
-    const removeWord = (number) => {
-        setArrWord(arrWord.filter(i => i.number !== number))
+    const removeWord = (number: number) => {
+        setArrWord(arrWord.filter((i: IArrWord) => i.number !== number))
     }
-    const changeWord = (key, value, number) => {
-        setArrWord(arrWord.map(i => i.number === number ? { ...i, [key]: value } : i))
+    const changeWord = (key: string, value: string, number: number) => {
+        setArrWord(arrWord.map((i: IArrWord) => i.number === number ? { ...i, [key]: value } : i))
     }
-    const selectFile = e => {
+    const selectFile = (e: any) => {
         setFile(e.target.files[0])
     }
 
-    const addCollection = () => {
-        if (!name) {
-            onHide()
-            fullCollections.setMenuColl('')
-            fullCollections.setMenuWord('')
-            setArrWord([])
-            return
-        }
-        const filterArrWord = arrWord.filter((word) => word.eng && word.rus)
-
+    const addWordsParent = () => {
+        const filterArrWord = arrWord.filter((word: IArrWord) => word.eng && word.rus)
         const formData = new FormData()
-        formData.append('name', name)
         formData.append('filterArrWord', JSON.stringify(filterArrWord))
         formData.append('file', file)
+        if (!file && filterArrWord.length === 0) return (setMenuColl(''), onHide())
         if (!file) {
-            createCollection(userId, formData)
-                .then(data => onHide())
-                .then(data => fullCollections.setIsLoadColleltions(true))
-                .then(data => setName(''))
+            addWords(collId, formData)
                 .then(data => setArrWord([]))
-                .then(data => fullCollections.setMenuColl(''))
-                .then(data => fullCollections.setMenuWord(''))
-        } else {
-            createFromFile(userId, formData)
+                .then(data => setIsLoadColleltions(true))
+                .then(data => setMenuColl(''))
                 .then(data => onHide())
-                .then(data => fullCollections.setIsLoadColleltions(true))
-                .then(data => setName(''))
+        } else {
+            addWordsFromFile(collId, formData)
                 .then(data => setFile(null))
                 .then(data => setArrWord([]))
-                .then(data => fullCollections.setMenuColl(''))
-                .then(data => fullCollections.setMenuWord(''))
+                .then(data => setIsLoadColleltions(true))
+                .then(data => setMenuColl(''))
+                .then(data => onHide())
         }
     }
+
 
     return (
         <Modal
@@ -75,21 +73,11 @@ const CreateCollection = observer(({ show, onHide }) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Добавить новую колекцию
+                    Добавить слова
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Form.Control
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                        className='mt-3'
-                        placeholder="Введите название колекции"
-                    />
-                    {/* <hr /> */}
-
-                    {/* <hr /> */}
-
                     <div className='div_file'>
                         <Form.Control
                             className='upload_file'
@@ -102,34 +90,34 @@ const CreateCollection = observer(({ show, onHide }) => {
                             className='image_info'
                             src={info}
                         />
-                        <Instructions
+                        <InstructionModal
                             show={instructionsVisible}
                             onHide={() => setInstructionsVisible(false)}
                         />
                     </div>
-
                     <p className='text_or'>Или</p>
+
                     <Button
                         variant={"outline-dark"}
                         onClick={addWord}
                     >
-                        Добавить слова
+                        Добавить слово
                     </Button>
-                    {arrWord.map(i =>
+                    {arrWord.map((i: IArrWord) =>
                         <Row className='mt-2' key={i.number}>
                             <Col md={4}>
                                 <Form.Control
+                                    className=' word'
                                     value={i.eng}
-                                    className='word'
-                                    onChange={(e) => changeWord('eng', e.target.value, i.number)}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeWord('eng', e.target.value, i.number)}
                                     placeholder={'Введите слово'}
                                 />
                             </Col>
                             <Col md={4}>
                                 <Form.Control
                                     value={i.rus}
-                                    className='word'
-                                    onChange={(e) => changeWord('rus', e.target.value, i.number)}
+                                    className=' word'
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeWord('rus', e.target.value, i.number)}
                                     placeholder={'Введите перевод'}
                                 />
                             </Col>
@@ -147,14 +135,14 @@ const CreateCollection = observer(({ show, onHide }) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-                <Button variant="outline-success" onClick={addCollection}>Добавить</Button>
+                <Button variant="outline-success" onClick={addWordsParent}>Добавить</Button>
             </Modal.Footer>
         </Modal>
     )
-})
+}
 
 
-export default CreateCollection
+export default AddWordsModal
 
 
 

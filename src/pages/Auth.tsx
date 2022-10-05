@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Container, Form } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Row from "react-bootstrap/Row"
@@ -6,12 +6,13 @@ import Card from "react-bootstrap/Card"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, LEARN_WORDS } from "../utils/consts"
 import { registration, login } from '../http/userAPI'
-import { observer } from 'mobx-react-lite'
-import { Context } from '..'
+import { useDispatch } from 'react-redux'
+import { setIsAuthPayload } from '../store/userReducer'
 
 
-const Auth = observer(() => {
-    const { user } = useContext(Context)
+const Auth = () => {
+    const dispatch = useDispatch()
+    const setIsAuth = (value: any) => {dispatch(setIsAuthPayload(value))}
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -19,16 +20,19 @@ const Auth = observer(() => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    interface AuthLogPass {
+        email: string
+        password: string
+    }
 
-    const click = async () => {
+    const click = async ({email, password}: {email:string, password:string}) => {
         try {
             let data
             if (isLogin) {
                 data = await login(email, password)
 
                 if (data) {
-                    console.log(typeof data.id)
-                    user.setIsAuth(true)
+                    setIsAuth(true)
                     document.location.href = LEARN_WORDS
                 }
             } else {
@@ -37,9 +41,10 @@ const Auth = observer(() => {
                     navigate(LOGIN_ROUTE)
                 }
             }
-        } catch (e) {
-            console.log(e)
+        } catch (e: any) {
+            // console.log(e)
             alert(e.response.data.message)
+            // alert(e)
         }
     }
 
@@ -55,7 +60,7 @@ const Auth = observer(() => {
                         className='mt-3'
                         placeholder='Введите ваш email...'
                         value={email}
-                        onInput={e => setEmail(e.target.value)}
+                        onInput={(e: any) => setEmail(e.target.value)}
                     />
                 </Form>
                 <Form className='d-flex flex-column'>
@@ -63,34 +68,31 @@ const Auth = observer(() => {
                         className='mt-3'
                         placeholder='Введите ваш password...'
                         value={password}
-                        onInput={e => setPassword(e.target.value)}
+                        onInput={(e: any) => setPassword(e.target.value)}
                         type="password"
                     />
                 </Form>
                 <Row className='d-flex justify-content-between mt-3 pl-3 pr-3'>
                     {isLogin ?
-                        <div className ='account_exists'>
+                        <div className='account_exists'>
                             Нет аккаунта? <NavLink to={REGISTRATION_ROUTE}>Зарегистрируйтесь</NavLink>
                         </div>
                         :
-                        <div className ='account_exists'>
+                        <div className='account_exists'>
                             Есть аккаунт? <NavLink to={LOGIN_ROUTE}>Войдите</NavLink>
                         </div>
                     }
                 </Row>
-
                 <Button
                     variant={"outline-success"}
-                    onClick={() => click(email, password)}
+                    onClick={() => click({email, password})}
                 >
                     {isLogin ? "Войти" : "Регистрация"}
                 </Button>
-
-
             </Card>
         </Container>
     )
-})
+}
 
 
 

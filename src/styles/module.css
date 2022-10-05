@@ -1,6 +1,7 @@
 .start {
     display: flex;
     min-height: 100vh;
+    position: relative;
 }
 
 .collection-list {
@@ -117,6 +118,12 @@
     left: -95px;
 }
 
+.menu3IconTimer {
+    position: absolute;
+    top: 7px;
+    left: -95px;
+}
+
 .menu1IconParent {
     position: relative;
 }
@@ -168,6 +175,7 @@
     position: absolute;
     background-color: #fff;
     display: flex;
+    /* left: -143px; */
     left: -101px;
     top: -13px;
     font-size: 25px;
@@ -275,6 +283,72 @@
     gap: 6px;
 }
 
+/* ===================================================== */
+/* timeoutCollDeleteModal */
+.modal_del_timeout {
+    position: fixed;
+    height: 5vh;
+    width: 28vw;
+    background-color: rgba(0,0,0,0.4);
+    bottom: 10px;
+    left: 10px;
+    z-index: 10001
+}
+
+/* ========================================================= */
+/* settings */
+.settings_logo {
+    height: 30px;
+    width: 30px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sett_parent {
+    display: flex;
+    min-height: 100vh;
+    background-color: #D3D3D3;
+}
+
+.sett {
+    min-height: 100vh;
+    width: 65%;
+    margin-top: 60px;
+    background-color: aliceblue;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sett_one_row_titel {
+    height: 30px;
+    border: 1px solid #000;
+    text-align: center;
+    font-size: large;
+}
+
+.sett_row {
+    line-height: 62px;
+    display: flex;
+    height: 60px;
+    border: 1px solid #000;
+}
+
+.settings_input {
+    height: 20px;
+    width: 20px;
+    border: 2px solid black;
+    margin: 20px 20px 20px 8px;
+}
+
+.settings_text {
+    /* display: inline-block; */
+    /* vertical-align: middle; */
+    /* min-height: 10em;
+    display: table-cell;
+    vertical-align: middle; */
+}
+
+/* ===================================================== */
 
 @media (max-width: 1024px) {
     .button {
@@ -286,10 +360,17 @@
     }
 
     .image_info_modal {
-        width: 450px;
-        height: 450px;
-        bottom: -225px;
-        right: 150px;
+        width: 400px;
+        height: 400px;
+        bottom: -205px;
+        right: 30px;
+    }
+
+    .settings_logo {
+        height: 30px;
+        width: 30px;
+        color: #fff;
+        cursor: pointer;
     }
 }
 
@@ -303,10 +384,10 @@
     }
 
     .image_info_modal {
-        width: 350px;
-        height: 350px;
-        bottom: -250px;
-        right: 100px;
+        width: 400px;
+        height: 400px;
+        bottom: -200px;
+        right: 50px;
     }
 }
 
@@ -321,6 +402,23 @@
 
     .word {
         margin-bottom: 12px;
+    }
+
+    .image_info_modal {
+        width: 380px;
+        height: 380px;
+        bottom: -190px;
+        right: 60px;
+    }
+
+    .modal_del_timeout {
+        position: fixed;
+        height: 5vh;
+        width: 33vw;
+        background-color: rgba(0,0,0,0.4);
+        bottom: 10px;
+        left: 10px;
+        z-index: 10001
     }
 
 }
@@ -338,6 +436,13 @@
 
     .start {
         display: block;
+    }
+
+    .image_info_modal {
+        width: 380px;
+        height: 380px;
+        bottom: -190px;
+        right: 60px;
     }
 }
 
@@ -362,11 +467,22 @@
     .instructions_block {
         gap: 10px;
     }
+
     .image_info_modal {
-        width: 310px;
-        height: 310px;
+        width: 350px;
+        height: 350px;
         bottom: -160px;
         right: 40px;
+    }
+
+    .modal_del_timeout {
+        position: fixed;
+        height: 5vh;
+        width: 40vw;
+        background-color: rgba(0,0,0,0.4);
+        bottom: 10px;
+        left: 10px;
+        z-index: 10001
     }
 
 }
@@ -376,10 +492,20 @@
         width: 100%;
         font-size: 12px;
     }
+
     .image_info_modal {
-        width: 250px;
-        height: 250px;
-        bottom: -160px;
-        right: 40px;
+        width: 350px;
+        height: 350px;
+        bottom: -180px;
+        right: 10px;
+    }
+    .modal_del_timeout {
+        position: fixed;
+        height: 5vh;
+        width: 45vw;
+        background-color: rgba(0,0,0,0.4);
+        bottom: 10px;
+        left: 10px;
+        z-index: 10001
     }
 }
