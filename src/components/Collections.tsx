@@ -99,8 +99,8 @@ const Collections: FC = () => {
                 {collections.map((collection: ICollection) =>
                     <div
                         key={collection._id}
-                        className="m-1">
-                        <Card
+                        className="cardCol">
+                        <Card className="cardCol"
                         >
                             <div className="cardCollBasic">
                                 <div className="form-check">
